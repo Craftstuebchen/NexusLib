@@ -22,11 +22,7 @@ import tsp.nexuslib.util.Validate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -384,9 +380,9 @@ public class ItemBuilder {
      */
     public ItemBuilder setGlow(boolean glow) {
         if (glow) {
-            return enchant(item.getType() != Material.BOW ? Enchantment.ARROW_INFINITE : Enchantment.LUCK, 1, true);
+            return enchant(item.getType() != Material.BOW ? Enchantment.INFINITY : Enchantment.LUCK_OF_THE_SEA, 1, true);
         } else {
-            return disenchant(item.getType() != Material.BOW ? Enchantment.ARROW_INFINITE : Enchantment.LUCK);
+            return disenchant(item.getType() != Material.BOW ? Enchantment.INFINITY : Enchantment.LUCK_OF_THE_SEA);
         }
     }
 
