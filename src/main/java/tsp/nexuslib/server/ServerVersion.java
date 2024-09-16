@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 /**
  * Server Version.
@@ -33,7 +34,18 @@ public enum ServerVersion {
     v_1_20(763), v_1_20_1(763), v_1_20_2(764), v_1_20_3(765), v_1_20_4(765), v_1_20_5(766), v_1_20_6(766),
     v_1_21(767);
 
-    private static final String NMS_VERSION_SUFFIX = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+    private static final String NMS_VERSION_SUFFIX = getNmsVersionSuffix();
+
+    private static String getNmsVersionSuffix() {
+        var logger = Logger.getLogger(ServerVersion.class.getSimpleName());
+        String packageName = Bukkit.getServer().getClass().getPackage().getName();
+        logger.info("Attempting to extract nms version suffix from '" + packageName + "'");
+        String[] parts = packageName.replace(".", ",").split(",");
+        var suffix = parts.length > 3 ? parts[3] : parts[parts.length - 1];
+        logger.info("nms version suffix is '" + suffix + "'");
+        return suffix;
+    }
+
     private static final ServerVersion[] VALUES = values();
     public static ServerVersion[] reversedValues = new ServerVersion[VALUES.length];
     private static ServerVersion cachedVersion;
